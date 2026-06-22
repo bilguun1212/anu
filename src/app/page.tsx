@@ -148,7 +148,7 @@ export default function BirthdaySurprise() {
                   <BookOpen size={12} /> 800 оноо аваарай хайраааааа! 📖✨
                 </span>
                 <span className="bg-purple-500/10 text-purple-300 text-[11px] sm:text-xs font-medium px-2.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1 border border-purple-500/20">
-                  <Heart size={12} fill="currentColor" /> Хязгааргүй хайртай шүү
+                  <Heart size={12} fill="currentColor" /> Хязгааргүй хайртай шүү❤️❤️❤️❤️❤️❤️❤️❤️
                 </span>
               </div>
               
@@ -156,7 +156,7 @@ export default function BirthdaySurprise() {
                 onClick={nextStep}
                 className="w-full bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 text-white font-semibold py-2.5 sm:py-3 px-6 rounded-full shadow-[0_4px_15px_rgba(34,211,238,0.2)] active:scale-[0.98] transition duration-200 cursor-pointer border-none text-sm sm:text-base"
               >
-                Сүүлчийн үг... 💌
+                Хамгийн сүүлчийн хэлэх үг 💌
               </button>
             </div>
           )}
@@ -194,19 +194,19 @@ export default function BirthdaySurprise() {
                 </div>
               </div>
 
-              <h2 className="text-xl sm:text-2xl font-bold mb-1 text-pink-300 drop-shadow-[0_0_10px_rgba(244,143,177,0.25)]">Хайртай шүү! ❤️</h2>
-              <p className="text-[10px] sm:text-[11px] text-purple-300/60 italic mb-4">"6 сарын 26 — Чи миний амьдралын хамгийн том бэлэг"</p>
+              <h2 className="text-xl sm:text-2xl font-bold mb-1 text-pink-300 drop-shadow-[0_0_10px_rgba(244,143,177,0.25)]">Хайртай шүү ❤️</h2>
+              <p className="text-[10px] sm:text-[11px] text-purple-300/60 italic mb-4">"10 сарын 21 — Чи миний амьдралын хамгийн том бэлэг"</p>
               
               <div className="bg-black/20 rounded-2xl p-4 sm:p-5 text-left border border-white/5 text-purple-200/90 text-xs sm:text-sm leading-relaxed font-light mb-5 sm:mb-6 max-h-[140px] overflow-y-auto shadow-inner custom-scrollbar">
                 Шалгалтаа яг өөрийнхөөрөө, аймаар тайван, тууштай өгөөрэй миний хайр. 
                 Сандрах хэрэггүй шүү, чи бүгдийг чадна. Шалгалт чинь дуусангуут би хамгийн 
                 түрүүнд баярыг чинь тэмдэглээд, чамайг чанга гэгч нь тэврээд хүлээж байх болохоор 
-                зүгээр л хичээгээрэй. 19 насны төрсөн өдрийн мэнд хүргэе, миний гүнж! 👸🎈❤️
+                зүгээр л хичээгээрэй. 19 насны төрсөн өдрийн мэнд хүргэе, миний гүнж👸❤️
               </div>
               
               <Link href="/game" className="block w-full mb-4 no-underline">
                 <button className="w-full bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-500 text-white text-xs sm:text-sm font-semibold py-3 px-4 rounded-xl shadow-md hover:opacity-90 active:scale-[0.98] flex items-center justify-center gap-2 cursor-pointer border-none transition-all">
-                  <Gamepad2 size={16} /> Хайрын тоглоом тоглох уу?
+                  <Gamepad2 size={16} /> Хайрын тоглоом тоглох уу хайраа?  Kisss💋
                 </button>
               </Link>
 
