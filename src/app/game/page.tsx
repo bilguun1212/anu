@@ -15,11 +15,13 @@ export default function LovePuzzleGame() {
   const [pieces, setPieces] = useState<number[]>([]);
   const [solved, setSolved] = useState(false);
   const [selectedIdx, setSelectedIdx] = useState<number | null>(null);
+  const [barStyles, setBarStyles] = useState<{ height: string }[]>([]);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const barCount = 16;
   const gridSize = 3; // 3x3 puzzle
 
+  // Эвлүүлдэг тоглоомыг шийдэгдэх боломжтой хувилбараар зөв холих функц
   const shufflePuzzle = () => {
     let arr = Array.from({ length: gridSize * gridSize }, (_, i) => i);
     
@@ -48,11 +50,19 @@ export default function LovePuzzleGame() {
     setIsMounted(true);
     shufflePuzzle();
 
+    // Клиент талд хөгжмийн долгионыг тогтвортой үүсгэх
+    const styles = Array.from({ length: barCount }).map(() => ({
+      height: `${40 + Math.random() * 60}%`
+    }));
+    setBarStyles(styles);
+
+    // 🎵 Олон аудио үүсэхээс сэргийлж зөвхөн байхгүй үед нь шинээр үүсгэнэ
     if (!audioRef.current) {
       const audio = new Audio("/hair-music.mp3");
       audio.loop = true;
       audio.volume = 0.4;
       
+      // Тайм шинэчлэгдэх эвент
       audio.ontimeupdate = () => {
         setCurrentTime(audio.currentTime);
       };
@@ -60,10 +70,12 @@ export default function LovePuzzleGame() {
       audioRef.current = audio;
     }
 
+    // Хөтөчийн авто-тоглуулах хамгаалалтыг тооцсон эхлэл
     audioRef.current.play()
       .then(() => setIsPlaying(true))
       .catch(() => console.log("Хэрэглэгчийн анхны даралтыг хүлээнэ."));
 
+    // 🧹 CLEANUP: Энэ хуудаснаас өөр хуудас руу шилжихэд дууг бүрмөсөн зогсоож, устгана
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
@@ -92,9 +104,11 @@ export default function LovePuzzleGame() {
     }
   };
 
+  // 🧩 ПАЗЛ ДЭЭР ДАРАХАД БАЙР СОЛИХ ЛОГИК
   const handlePieceClick = (index: number) => {
     if (solved) return;
 
+    // Тоглож эхлэхэд хэрэв дуу нь хаалттай байвал асааж өгнө
     if (!isPlaying && audioRef.current) {
       audioRef.current.play().catch((err) => console.log(err));
       setIsPlaying(true);
@@ -134,13 +148,7 @@ export default function LovePuzzleGame() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0c0a21] via-[#1a1235] to-[#2b0f29] flex flex-col items-center justify-center p-4 relative font-sans overflow-hidden select-none">
       
-      {/* 🪄 CSS `@keyframes`-ийг JSX-д ямар нэгэн алдаагүй, цэвэрхэн таньж уншихаар энд бичиж өгөв */}
-      <style dangerouslySetInnerHTML={{ __html: `
-        @keyframes customSoundWave {
-          0%, 100% { height: 20%; }
-          50% { height: 95%; }
-        }
-      `}} />
+      {/* Хуучин байсан <audio> таг шаардлагагүй болсон тул хассан (цаанаасаа Audio instance-оор ажиллаж байгаа) */}
 
       {/* Буцах товч */}
       <Link href="/" className="absolute top-6 left-6 flex items-center gap-2 text-pink-400 font-medium hover:text-pink-300 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 shadow-lg text-xs z-20 transition-all active:scale-95">
@@ -149,27 +157,21 @@ export default function LovePuzzleGame() {
 
       {/* 🌌 ХӨГЖИМ ТОГЛУУЛАГЧ КАПСУЛ */}
       <div className="absolute top-6 right-6 flex flex-col gap-1 items-end max-w-[140px] w-full z-20">
-        <span className="text-[10px] font-bold text-pink-400 select-none animate-pulse block truncate w-full text-right">
-          {isPlaying ? "Playing: Дурсамж 🎵" : "Заавал дуугаа сонсоорой хайраа ☕"}
+        <span className="text-[10px] font-bold text-pink-400 select-none animate-pulse">
+          {isPlaying ? "Playing: Дурсамж 🎵" : "Заавал дуугаа сонсож үзээрэй хайраа ☕"}
         </span>
         <button onClick={toggleMusic} className="w-full h-10 relative rounded-xl bg-[#1c1836]/80 border border-pink-500/30 overflow-hidden shadow-md flex items-center px-3 justify-between group focus:outline-none">
-          <div className="absolute inset-x-3 bottom-1 top-4 flex items-end justify-between pointer-events-none gap-[3px] opacity-40">
-            {Array.from({ length: barCount }).map((_, i) => {
-              // Баганууд зэрэг биш өөр өөр хугацаанд савлах саатал (delay)
-              const delay = (i % 4) * 0.15;
-              const duration = 0.6 + (i % 3) * 0.2;
-              return (
-                <div 
-                  key={i} 
-                  className="w-full bg-pink-500 rounded-t-full" 
-                  style={{ 
-                    height: "25%",
-                    animation: isPlaying ? `customSoundWave ${duration}s ease-in-out ${delay}s infinite alternate` : "none",
-                    transition: "height 0.3s"
-                  }} 
-                />
-              );
-            })}
+          <div className="absolute inset-x-3 bottom-1 top-4 flex items-end justify-between pointer-events-none gap-[2px] opacity-35">
+            {Array.from({ length: barCount }).map((_, i) => (
+              <div 
+                key={i} 
+                className="w-full bg-pink-500 rounded-t-full" 
+                style={{ 
+                  height: isPlaying ? (barStyles[i]?.height || "60%") : "20%", 
+                  transition: "height 0.3s" 
+                }} 
+              />
+            ))}
           </div>
           <span className="text-[11px] font-bold text-purple-100 z-10">{formatTime(currentTime)}</span>
           <div className="w-5 h-5 rounded-full bg-pink-500/20 flex items-center justify-center text-pink-400 z-10">
