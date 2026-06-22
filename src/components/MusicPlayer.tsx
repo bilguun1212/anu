@@ -1,36 +1,46 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { Play, Pause } from "lucide-react";
 
 export default function MusicPlayer() {
   const [isPlaying, setIsPlaying] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [isMounted, setIsMounted] = useState(false); // Hydration алдаанаас сэргийлэх төлөв
+  const [barStyles, setBarStyles] = useState<{ duration: string; delay: string }[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  
+  const barCount = 24; 
 
+  // Хуудас бүрэн ачаалагдаж дууссаныг шалгах (Сэргийлэлт)
   useEffect(() => {
-    // 1. Браузер зөвшөөрвөл шууд тоглуулахыг оролдоно
+    setIsMounted(true);
+
+    // Math.random()-ийг зөвхөн клиент талд ачаалагдахад ганцхан удаа үүсгэж өгнө
+    const styles = Array.from({ length: barCount }).map(() => ({
+      duration: `${0.4 + Math.random() * 0.6}s`,
+      delay: `${Math.random() * 0.3}s`,
+    }));
+    setBarStyles(styles);
+
     if (audioRef.current) {
       audioRef.current.play()
         .then(() => setIsPlaying(true))
-        .catch(() => console.log("Браузер автоматаар тоглуулахыг хориглосон тул анхны даралтыг хүлээнэ."));
+        .catch(() => console.log("Анхны даралтыг хүлээнэ."));
     }
 
-    // 2. Дэлгэц дээр хаана ч хамаагүй анхны даралт (товшилт) хийгдэхэд дууг асаах функц
     const handleFirstClick = () => {
-      // audioRef.current.paused ашиглан TypeScript-ийн алдааг засав
       if (audioRef.current && audioRef.current.paused) {
         audioRef.current.play()
           .then(() => {
             setIsPlaying(true);
-            // Дуу нэгэнт ассан тул сонсогчдыг устгаж санах ойг чөлөөлнө
             window.removeEventListener("click", handleFirstClick);
             window.removeEventListener("touchstart", handleFirstClick);
           })
-          .catch((e) => console.log("Тоглуулахад алдаа гарлаа:", e));
+          .catch((e) => console.log(e));
       }
     };
 
-    // Компьютерын click болон утасны touchstart-ийг хоёуланг нь сонсоно
     window.addEventListener("click", handleFirstClick);
     window.addEventListener("touchstart", handleFirstClick);
 
@@ -38,10 +48,24 @@ export default function MusicPlayer() {
       window.removeEventListener("click", handleFirstClick);
       window.removeEventListener("touchstart", handleFirstClick);
     };
-  }, []); // Dependency-г хоосон орхиж, хязгааргүй ажиллахаас сэргийлнэ
+  }, []);
+
+  // ⏱️ Дууны секунд явах үед ажиллах функц
+  const handleTimeUpdate = () => {
+    if (audioRef.current) {
+      setCurrentTime(audioRef.current.currentTime);
+    }
+  };
+
+  // Секундыг 0:00 формат руу хөрвүүлэх
+  const formatTime = (time: number) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = Math.floor(time % 60);
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
+  };
 
   const togglePlay = (e: React.MouseEvent) => {
-    e.stopPropagation(); // Бусад элементүүдийн click event-ийг дарахгүй
+    e.stopPropagation();
     if (!audioRef.current) return;
     
     if (isPlaying) {
@@ -52,28 +76,66 @@ export default function MusicPlayer() {
     setIsPlaying(!isPlaying);
   };
 
+  // Хэрэв клиент талд хараахан бэлэн болоогүй бол түр хугацаанд хоосон буцаана (Hydration-ийг алгасна)
+  if (!isMounted) return null;
+
   return (
-    <div className="fixed bottom-5 right-5 z-50">
-      <audio ref={audioRef} src="/bg-music.mp3" loop />
+    <div className="fixed bottom-5 right-5 z-50 flex flex-col gap-1.5 items-end max-w-[200px] w-full">
+      <audio 
+        ref={audioRef} 
+        src="/bg-music.mp3" 
+        loop 
+        onTimeUpdate={handleTimeUpdate} // Дуу явах бүрд цагийг шинэчилнэ
+      />
       
+      {/* 🎵 ДЭЭД ТАЛЫН ДУУНЫ НЭР */}
+      <div className="text-[11px] font-bold text-pink-400 bg-[#0c0a21]/80 backdrop-blur-sm px-2.5 py-0.5 rounded-md border border-pink-500/10 tracking-wide select-none shadow-sm animate-pulse">
+        {isPlaying ? "Playing: Миний Бүгд 🎵" : "Заавал дуугаа сонсож үзээрэй хайраа ☕"}
+      </div>
+
+      {/* 🌌 ҮНДСЭН ТОГЛУУЛАГЧ КАПСУЛ */}
       <button
         onClick={togglePlay}
-        className="flex items-center gap-3 bg-[#1c1836]/60 backdrop-blur-md border border-pink-500/30 text-pink-400 p-3 px-4 rounded-full shadow-[0_0_20px_rgba(244,143,177,0.25)] hover:bg-[#1c1836]/80 transition-all cursor-pointer text-sm font-semibold select-none"
+        className="w-full h-14 relative rounded-2xl bg-[#14112a] border border-pink-500/20 overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.5)] transition-all active:scale-95 cursor-pointer flex items-center px-4 group justify-between"
       >
-        {isPlaying ? <Volume2 size={18} className="animate-bounce" /> : <VolumeX size={18} />}
-        
-        <span>{isPlaying ? "Миний Бүгд 🎵" : "Ая асаах уу? ✨"}</span>
+        {/* 📊 АРД НЬ ХӨДЛӨХ ДУУНЫ ДОЛГИОН */}
+        <div className="absolute inset-x-4 bottom-2 top-6 flex items-end justify-between pointer-events-none gap-[2px] opacity-40">
+          {Array.from({ length: barCount }).map((_, i) => {
+            const duration = isPlaying && barStyles[i] ? barStyles[i].duration : "0s";
+            const delay = isPlaying && barStyles[i] ? barStyles[i].delay : "0s";
+            
+            return (
+              <div
+                key={i}
+                className="w-full bg-pink-500 rounded-t-full transition-all duration-300"
+                style={{
+                  height: isPlaying ? "100%" : "15%",
+                  transformOrigin: "bottom",
+                  animation: isPlaying ? `visualizerBars ${duration} infinite alternate ease-in-out` : "none",
+                  animationDelay: delay,
+                }}
+              />
+            );
+          })}
+        </div>
 
-        {/* 📊 Дууны долгионы анимаци */}
-        {isPlaying && (
-          <div className="flex items-end gap-[2px] h-3.5 w-5 mb-[2px]">
-            <div className="w-[3px] bg-pink-400 rounded-full animate-[bounce_0.6s_infinite_alternate]" />
-            <div className="w-[3px] bg-pink-400 rounded-full animate-[bounce_0.4s_infinite_alternate] [animation-delay:0.1s]" />
-            <div className="w-[3px] bg-pink-400 rounded-full animate-[bounce_0.7s_infinite_alternate] [animation-delay:0.2s]" />
-            <div className="w-[3px] bg-pink-400 rounded-full animate-[bounce_0.5s_infinite_alternate] [animation-delay:0.1s]" />
-          </div>
-        )}
+        {/* ТЕКСТ (Жинхэнэ секунд нь энд харагдана) */}
+        <span className="text-xs font-bold text-purple-100 z-10 transition-colors group-hover:text-pink-300 select-none">
+          {isPlaying ? formatTime(currentTime) : "Асаах"}
+        </span>
+
+        {/* ПЛЭЙ ТОВЧ */}
+        <div className="w-8 h-8 rounded-full bg-pink-500/10 border border-pink-500/30 flex items-center justify-center text-pink-400 z-10 group-hover:bg-pink-500 group-hover:text-white transition-all shadow-md">
+          {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} className="ml-[2px]" fill="currentColor" />}
+        </div>
       </button>
+
+      <style jsx global>{`
+        @keyframes visualizerBars {
+          0% { transform: scaleY(0.15); }
+          100% { transform: scaleY(1); }
+        }
+      `}</style>
     </div>
   );
 }
