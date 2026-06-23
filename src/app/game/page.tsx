@@ -23,6 +23,7 @@ export default function LoveGame() {
   const [isMounted, setIsMounted] = useState(false);
   const [barStyles, setBarStyles] = useState<{ duration: string; delay: string }[]>([]);
   
+  
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const barCount = 16; 
