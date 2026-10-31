@@ -151,11 +151,11 @@ export default function LoveGame() {
       </Link>
 
       <div className="absolute top-6 right-6 flex flex-col gap-1 items-end max-w-[140px] w-full z-20">
-        <span className="text-[10px] font-bold text-pink-400 tracking-wider select-none animate-pulse">{isPlaying ? "Playing: Дурсамж 🎵" : "Заавал дуугаа сонсож үзээрэй хайраа ☕"}</span>
+        <span className="text-[10px] font-bold text-pink-400 tracking-wider select-none animate-pulse">{isPlaying ? "Playing: Baby broke mama 🎵" : "Заавал дуугаа сонсож үзээрэй хайраа ☕"}</span>
         <button onClick={toggleMusic} className="w-full h-10 relative rounded-xl bg-[#1c1836]/80 border border-pink-500/30 overflow-hidden shadow-md active:scale-95 transition-all cursor-pointer flex items-center px-3 justify-between group focus:outline-none">
           <div className="absolute inset-x-3 bottom-1 top-4 flex items-end justify-between pointer-events-none gap-[2px] opacity-35">
             {Array.from({ length: barCount }).map((_, i) => (
-              <div key={i} className="w-full bg-pink-500 rounded-t-full transition-all duration-300" style={{ height: isPlaying ? "100%" : "20%", transformOrigin: "bottom", animation: isPlaying ? `gameVisualizer ${isPlaying && barStyles[i] ? barStyles[i].duration : "0s"} infinite alternate ease-in-out` : "none", animationDelay: isPlaying && barStyles[i] ? barStyles[i].delay : "0s" }} />
+              <div key={i} className="w-full bg-pink-500 rounded-t-full transition-all duration-300" style={{ height: isPlaying ? "100%" : "20%", transformOrigin: "bottom", animation: isPlaying ? `gameVisualizer ${isPlaying && barStyles[i] ? barStyles[i].duration : "60s"} infinite alternate ease-in-out` : "none", animationDelay: isPlaying && barStyles[i] ? barStyles[i].delay : "0s" }} />
             ))}
           </div>
           <span className="text-[11px] font-bold text-purple-100 z-10 select-none">{formatTime(currentTime)}</span>
@@ -168,7 +168,7 @@ export default function LoveGame() {
         {/* Хэрвээ 100% болбол та хоёрын зургийг үзүүлнэ */}
         {lovePercent === 100 ? (
           <motion.div initial={{ scale: 0.8, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} className="flex gap-4 justify-center mb-6">
-            <img src="/hair1.jpg" alt="Us 1" className="w-28 h-28 object-cover rounded-2xl border-2 border-pink-400 shadow-lg" />
+            <img src="/hair8.jpg" alt="Us 1" className="w-28 h-28 object-cover rounded-2xl border-2 border-pink-400 shadow-lg" />
             <img src="/hair2.jpg" alt="Us 2" className="w-28 h-28 object-cover rounded-2xl border-2 border-pink-400 shadow-lg" />
           </motion.div>
         ) : (

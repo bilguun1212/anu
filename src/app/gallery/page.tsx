@@ -443,7 +443,7 @@ export default function GalleryPage() {
             transition={{ duration: 3, repeat: Infinity }}
             className="text-purple-300/40 text-xs tracking-widest uppercase"
           >
-            {images.length + 1} дурсамж • 10/21
+            {images.length + 1} дурсамж • 
           </motion.div>
           <motion.p
             animate={{ opacity: [0.2, 0.5, 0.2] }}

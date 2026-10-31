@@ -14,9 +14,9 @@ interface Memory {
 }
 
 const defaultMemories: Memory[] = [
-  { imgIndex: 0, note: "💜", date: "2026-5-22", emoji: "🌟" },
-  { imgIndex: 2, note: "💖", date: "2026-5-01", emoji: "😊" },
-  { imgIndex: 4, note: "Цэцэг шиг охин🌸", date: "2026-03-8", emoji: "🌸" },
+  { imgIndex: 0, note: "💜", date: "", emoji: "" },
+  { imgIndex: 2, note: "💖", date: "", emoji: "" },
+  { imgIndex: 4, note: "🌸", date: "", emoji: "" },
 ];
 
 const EMOJIS = ["💜", "🌸", "✨", "😊", "🌟", "💖", "🎀", "🌙", "⭐", "💫"];

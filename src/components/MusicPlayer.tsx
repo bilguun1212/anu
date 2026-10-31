@@ -90,7 +90,7 @@ export default function MusicPlayer() {
       
       {/* 🎵 ДЭЭД ТАЛЫН ДУУНЫ НЭР */}
       <div className="text-[11px] font-bold text-pink-400 bg-[#0c0a21]/80 backdrop-blur-sm px-2.5 py-0.5 rounded-md border border-pink-500/10 tracking-wide select-none shadow-sm animate-pulse">
-        {isPlaying ? "Playing: Миний Бүгд 🎵" : "Заавал дуугаа сонсож үзээрэй хайраа ☕"}
+        {isPlaying ? "Playing: Дандаа хайртай 🎵" : "Заавал дуугаа сонсож үзээрэй хайраа ☕"}
       </div>
 
       {/* 🌌 ҮНДСЭН ТОГЛУУЛАГЧ КАПСУЛ */}

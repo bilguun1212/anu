@@ -23,8 +23,8 @@ export default function BirthdaySurprise() {
     "/hair1.jpg",
     "/hair2.jpg",
     "/hair3.jpg",
-    "/hair4.jpg",
-    "/hair5.jpg"
+    "/hair8.jpg",
+    "/hair7.jpg"
   ];
 
   useEffect(() => {
@@ -49,7 +49,7 @@ export default function BirthdaySurprise() {
   };
 
   const extraPages = [
-    { href: "/timeline", icon: Clock, label: "Цаг хугацаа", color: "from-purple-500/20 to-violet-500/20", border: "border-purple-500/30", text: "text-purple-300" },
+   
     { href: "/favorites", icon: Star, label: "Favorite хийсэн зурагнууд", color: "from-yellow-500/20 to-amber-500/20", border: "border-yellow-500/30", text: "text-yellow-300" },
     { href: "/memories", icon: BookOpen, label: "Дурсамжийн дэвтэр", color: "from-green-500/20 to-emerald-500/20", border: "border-green-500/30", text: "text-green-300" },
     { href: "/letter", icon: Mail, label: "Захидал", color: "from-red-500/20 to-pink-500/20", border: "border-red-500/30", text: "text-red-300" },
@@ -58,7 +58,7 @@ export default function BirthdaySurprise() {
   return (
     <div
       className="min-h-screen w-full bg-cover bg-center flex flex-col items-center justify-center font-sans overflow-x-hidden p-4 sm:p-6 md:p-8 relative text-gray-100 selection:bg-pink-500/30"
-      style={{ backgroundImage: "url('/hair1.jpg')" }}
+      style={{ backgroundImage: "url('/hair8.jpg')" }}
     >
       {/* Overlay */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#0b091a]/90 via-[#161233]/85 to-[#2d122b]/90 backdrop-blur-[6px] pointer-events-none" />
@@ -115,13 +115,13 @@ export default function BirthdaySurprise() {
           {step === 0 && (
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-pink-400/40 shadow-[0_0_20px_rgba(244,143,177,0.3)] mb-5 sm:mb-6">
-                <img src="/hair1.jpg" alt="Миний хайр 1" className="w-full h-full object-cover" />
+                <img src="/hair8.jpg" alt="Миний хайр 1" className="w-full h-full object-cover" />
               </div>
               <h1 className="text-2xl sm:text-3xl font-extrabold mb-3 sm:mb-4 bg-gradient-to-r from-pink-400 via-purple-300 to-cyan-300 bg-clip-text text-transparent tracking-wide">
                 Happy 19th Birthday! 🎉
               </h1>
               <p className="text-purple-200/80 mb-5 sm:mb-6 leading-relaxed text-xs sm:text-sm font-light px-1">
-                Өнөөдөр бол миний амьдралын хамгийн нандин, хамгийн хөөрхөн охины 19 насны төрсөн өдөр! ❤️
+                Өнөөдөр бол миний амьдралын хамгийн нандин, хамгийн хөөрхөн охины 19 насны төрсөн өдөр ❤️
               </p>
               <button
                 onClick={nextStep}
@@ -132,24 +132,15 @@ export default function BirthdaySurprise() {
             </div>
           )}
 
-          {/* STEP 1 */}
+          {/* STEP 1 */} 
           {step === 1 && (
             <div className="flex flex-col items-center">
               <div className="w-32 h-32 sm:w-40 sm:h-40 rounded-full overflow-hidden border-2 border-cyan-400/40 shadow-[0_0_20px_rgba(34,211,238,0.3)] mb-5 sm:mb-6">
-                <img src="/hair2.jpg" alt="Миний хайр 2" className="w-full h-full object-cover" />
+                <img src="/hair6.jpg" alt="Миний хайр 2" className="w-full h-full object-cover" />
               </div>
-              <h1 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 bg-gradient-to-r from-cyan-300 to-purple-300 bg-clip-text text-transparent px-1">
-                ЭШ-д нь Амжилт, миний ухаантай охин! 🧠📚
-              </h1>
-              <p className="text-purple-200/80 mb-5 sm:mb-6 leading-relaxed font-light text-xs sm:text-sm px-1">
-                Төрсөн өдөр чинь ЭШ-тэй давхцаж байгаад битгий гуниглаарай, миний охин.
-                Шалгалтаа маш мундаг, сайн хийгээрэй миний хайр! Бүх зүйлийг маш сайн хийж чадна
-                гэдэгт чинь би зуун хувь итгэлтэй байгаа шүү. Чи минь хамгийн мундаг нь!❤️
-              </p>
+           
               <div className="flex flex-wrap gap-2 justify-center mb-5 sm:mb-6">
-                <span className="bg-pink-500/10 text-pink-300 text-[11px] sm:text-xs font-medium px-2.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1 border border-pink-500/20">
-                  <BookOpen size={12} /> 800 оноо аваарай хайраааааа! 📖✨
-                </span>
+             
                 <span className="bg-purple-500/10 text-purple-300 text-[11px] sm:text-xs font-medium px-2.5 py-1 sm:py-1.5 rounded-full flex items-center gap-1 border border-purple-500/20">
                   <Heart size={12} fill="currentColor" /> Хязгааргүй хайртай шүү❤️❤️❤️❤️❤️❤️❤️❤️
                 </span>
@@ -195,13 +186,10 @@ export default function BirthdaySurprise() {
               </div>
 
               <h2 className="text-xl sm:text-2xl font-bold mb-1 text-pink-300 drop-shadow-[0_0_10px_rgba(244,143,177,0.25)]">Хайртай шүү ❤️</h2>
-              <p className="text-[10px] sm:text-[11px] text-purple-300/60 italic mb-4">"10 сарын 21 — Чи миний амьдралын хамгийн том бэлэг"</p>
+             
 
               <div className="bg-black/20 rounded-2xl p-4 sm:p-5 text-left border border-white/5 text-purple-200/90 text-xs sm:text-sm leading-relaxed font-light mb-5 sm:mb-6 max-h-[140px] overflow-y-auto shadow-inner">
-                Шалгалтаа яг өөрийнхөөрөө, аймаар тайван, тууштай өгөөрэй миний хайр.
-                Сандрах хэрэггүй шүү, чи бүгдийг чадна. Шалгалт чинь дуусангуут би хамгийн
-                түрүүнд баярыг чинь тэмдэглээд, чамайг чанга гэгч нь тэврээд хүлээж байх болохоор
-                зүгээр л хичээгээрэй. 19 насны төрсөн өдрийн мэнд хүргэе, миний гүнж👸❤️
+              19 насны төрсөн өдрийн мэнд хүргэе, зөндөө хайртай шүү миний гүнж👸❤️
               </div>
 
               <Link href="/game" className="block w-full mb-3 no-underline">
