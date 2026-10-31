@@ -49,7 +49,7 @@ export default function BirthdaySurprise() {
   };
 
   const extraPages = [
-   
+    { href: "/timeline", icon: Star, label: "Favorite хийсэн зурагнууд", color: "from-yellow-500/20 to-amber-500/20", border: "border-yellow-500/30", text: "text-pink-300" },
     { href: "/favorites", icon: Star, label: "Favorite хийсэн зурагнууд", color: "from-yellow-500/20 to-amber-500/20", border: "border-yellow-500/30", text: "text-yellow-300" },
     { href: "/memories", icon: BookOpen, label: "Дурсамжийн дэвтэр", color: "from-green-500/20 to-emerald-500/20", border: "border-green-500/30", text: "text-green-300" },
     { href: "/letter", icon: Mail, label: "Захидал", color: "from-red-500/20 to-pink-500/20", border: "border-red-500/30", text: "text-red-300" },
